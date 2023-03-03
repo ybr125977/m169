@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  lastverteiler:
+    image: haproxy:latest
+    container_name: lastverteiler
+    ports:
+      - "80:80"
+    volumes:
+      - ./lastverteiler-speicher:/usr/local/etc/haproxy/haproxy.cfg
+
+volumes:
+  lastverteiler-speicher:
