@@ -1,0 +1,38 @@
+version: "3"
+services:
+  datenbank:
+    image: mysql:latest
+    container_name: datenbank
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: speicher
+      MYSQL_DATABASE: speicher
+      MYSQL_USER: speicher
+      MYSQL_PASSWORD: speicher
+    volumes:
+      - datenbank-speicher:/var/lib/mysql
+
+  datenbank-verwaltung:
+    image: adminer:latest
+    container_name: datenbank-verwaltung
+    restart: always
+    ports:
+      - "8080:8080"
+
+  speicher:
+    image: nextcloud:latest
+    container_name: speicher
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      NEXTCLOUD_DB_HOST: datenbank
+      NEXTCLOUD_DB_USER: speicher
+      NEXTCLOUD_DB_PASSWORD: speicher
+      NEXTCLOUD_DB_NAME: speicher
+    volumes:
+      - speicher-speicher:/var/www/html
+
+volumes:
+  datenbank-speicher:
+  speicher-speicher:
